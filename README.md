@@ -12,7 +12,7 @@ https://start.camunda.com/ with :
 
 ## Links
 
-http://localhost:8080/swagger-ui/index.html
-http://localhost:8080/camunda/app/cockpit/
-http://localhost:8080/engine-rest/engine/default/process-definition
+ - http://localhost:8080/swagger-ui/index.html
+ - http://localhost:8080/camunda/app/cockpit/
+ - http://localhost:8080/engine-rest/engine/default/process-definition
 

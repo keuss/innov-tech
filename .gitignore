@@ -56,4 +56,4 @@ build/
 .vscode/
 
 ### H2 ###
-sample.mv.db
+camunda-h2-database.mv.db

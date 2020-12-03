@@ -65,6 +65,8 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
+      <!-- all previous version of lombok library before 1.18.16 contains a Bug and new IntelliJ can't use it by defaul -->
+      <version>1.18.16</version>
     </dependency>
     <!-- end add -->
 

@@ -20,6 +20,20 @@
   <artifactId>innov-tech</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
+  <!-- add -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.camunda.bpm</groupId>
+        <artifactId>camunda-bom</artifactId>
+        <version>7.14.0</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <!-- end add -->
+
   <dependencies>
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>
@@ -67,6 +81,16 @@
       <optional>true</optional>
       <!-- all previous version of lombok library before 1.18.16 contains a Bug and new IntelliJ can't use it by defaul -->
       <version>1.18.16</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine-plugin-connect</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.camunda.connect</groupId>
+      <artifactId>camunda-connect-http-client</artifactId>
     </dependency>
     <!-- end add -->
 

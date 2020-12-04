@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0y1mxx7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <bpmn:process id="InnovTechV1" name="InnovTechV1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ek9t2a</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0ek9t2a" sourceRef="StartEvent_1" targetRef="vol" />
+    <bpmn:serviceTask id="vol" name="Réserver un vol">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">
+              <camunda:script scriptFormat="Javascript">"http://localhost:8880/reserver/vol/" + destination</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:outputParameter name="prixVol">
+              <camunda:script scriptFormat="Javascript">connector.getVariable("response")</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="cout">
+              <camunda:script scriptFormat="Javascript">cout = Number(prixVol)</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ek9t2a</bpmn:incoming>
+      <bpmn:outgoing>Flow_12molx1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_12molx1" sourceRef="vol" targetRef="Activity_0vpvjgs" />
+    <bpmn:endEvent id="Event_04s9dxe">
+      <bpmn:incoming>Flow_0363zhf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_0vpvjgs" name="Réserver une voiture">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">
+              <camunda:script scriptFormat="Javascript">"http://localhost:8880/reserver/voiture/" + duree</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:outputParameter name="prixVoiture">
+              <camunda:script scriptFormat="Javascript">connector.getVariable("response");</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="cout">
+              <camunda:script scriptFormat="Javascript">cout=cout+Number(prixVoiture)</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_12molx1</bpmn:incoming>
+      <bpmn:outgoing>Flow_134255r</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_134255r" sourceRef="Activity_0vpvjgs" targetRef="Activity_0p5rgv7" />
+    <bpmn:serviceTask id="Activity_0p5rgv7" name="Réserver une hotel">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">
+              <camunda:script scriptFormat="Javascript">"http://localhost:8880/reserver/hotel/" + duree</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:outputParameter name="prixHotel">
+              <camunda:script scriptFormat="Javascript">connector.getVariable("response");</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="cout">
+              <camunda:script scriptFormat="Javascript">cout=cout+Number(prixHotel)</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_134255r</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wy5fit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0wy5fit" sourceRef="Activity_0p5rgv7" targetRef="Activity_0mckwak" />
+    <bpmn:sequenceFlow id="Flow_0363zhf" sourceRef="Activity_0mckwak" targetRef="Event_04s9dxe" />
+    <bpmn:userTask id="Activity_0mckwak" name="Vérification avant validation">
+      <bpmn:incoming>Flow_0wy5fit</bpmn:incoming>
+      <bpmn:outgoing>Flow_0363zhf</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmn:error id="Error_0273fjt" name="notFound" errorCode="notFound" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="InnovTechV1">
+      <bpmndi:BPMNEdge id="Flow_0363zhf_di" bpmnElement="Flow_0363zhf">
+        <di:waypoint x="970" y="117" />
+        <di:waypoint x="1072" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wy5fit_di" bpmnElement="Flow_0wy5fit">
+        <di:waypoint x="790" y="117" />
+        <di:waypoint x="870" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_134255r_di" bpmnElement="Flow_134255r">
+        <di:waypoint x="590" y="117" />
+        <di:waypoint x="690" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12molx1_di" bpmnElement="Flow_12molx1">
+        <di:waypoint x="390" y="117" />
+        <di:waypoint x="490" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ek9t2a_di" bpmnElement="Flow_0ek9t2a">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="290" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jm89wv_di" bpmnElement="vol">
+        <dc:Bounds x="290" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rx8ano_di" bpmnElement="Event_04s9dxe">
+        <dc:Bounds x="1072" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vpvjgs_di" bpmnElement="Activity_0vpvjgs">
+        <dc:Bounds x="490" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p5rgv7_di" bpmnElement="Activity_0p5rgv7">
+        <dc:Bounds x="690" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h2wlk1_di" bpmnElement="Activity_0mckwak">
+        <dc:Bounds x="870" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

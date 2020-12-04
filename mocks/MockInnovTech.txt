@@ -1,0 +1,107 @@
+-- LANCER LE MOCK
+java -jar MockServer-1.0-SNAPSHOT-shaded.jar -serverPort 8880 -logLevel DEBUG
+
+-- PURGER L HOTEL
+curl -v -X PUT "http://localhost:8880/mockserver/clear?type=EXPECTATIONS" -d '{ "path": "/reserver/hotel/.*" }'
+
+-- TESTER LE MOCK
+curl -v -X GET http://localhost:8880/reserver/hotel/7
+
+-- L'ENSEMBRE DES MOCK
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/vol/Ibiza"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "20"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/vol/Cancun"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "800"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/vol/Tokyo"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "600"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/vol/NewYork"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "200"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/voiture/7"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "300"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/voiture/14"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "500"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/voiture/21"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "700"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/hotel/7"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "300"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/hotel/14"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "1000"
+  }
+}'
+curl -v -X PUT "http://localhost:8880/mockserver/expectation" -d '{
+  "httpRequest" : {
+    "path" : "/reserver/hotel/21"
+  },
+  "httpResponse" : {
+    "statusCode" : 200,
+    "body" : "1400"
+  }
+}'
+
+
+
+-- Process variables
+
+destination String Cancun
+duree String 7

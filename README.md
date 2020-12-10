@@ -8,7 +8,12 @@ https://start.camunda.com/ with :
 
 ## Build
 
-`mvn clean install`
+- `mvn clean install`
+
+## Run
+
+- Run the main Spring Boot class
+- Launch mock see [here](https://github.com/keuss/innov-tech/blob/demoV2/mocks/MockInnovTech.txt)
 
 ## Links
 
